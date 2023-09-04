@@ -1,0 +1,201 @@
+.nav__container{
+    display: flex;
+    /* grid-template-columns: auto 1; */
+    justify-content: space-between;
+    justify-items: center;
+    align-items: center;
+    /* height: 80px; */
+    width: 100vw;
+    background-color: #009688;
+    /* padding: 5px 20px 5px 20px; */
+    /* position: fixed; */
+    /* box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3); */
+    /* border-bottom: 1px solid rgb(213, 211, 211); */
+}
+
+.menu{
+    display: none;
+}
+
+.left__section{
+    display: flex;
+    flex-direction: row;
+    justify-self: flex-start;
+    padding-left: 20px;
+}
+
+.left__section > p{
+    color: rgb(0, 0, 0);
+    margin: 18px;
+    font-weight:350;
+    font-size: larger;
+}
+
+.right__section > img {
+    display: none;
+}
+
+.middle__section{
+
+padding-left: 20px;
+}
+
+.logo{
+    /* display: flex; */
+    width: 190px;
+}
+
+.title__text{
+    font-family:Georgia, 'Times New Roman', Times, serif;
+    font-size: 26px;
+    font-weight: bold;
+    /* font-style: italic; */
+    /* text-transform: uppercase; */
+    letter-spacing: 2px;
+    color: #000;
+    text-decoration: none;
+}
+
+.right__section{
+    display: flex;
+    flex-direction: row;
+    justify-self: flex-end;
+    padding-right: 20px;
+}
+
+.right__section > p{
+    color: white;
+    margin: 18px;
+    font-weight:350;
+    font-size: larger;}
+
+.auth__nav{
+    text-decoration: none;
+    color: white;
+    cursor: pointer;
+}
+
+.auth__nav:hover{
+    text-decoration: underline;
+}
+
+.profile__avatar{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* height: 100%; */
+    color: black;
+    
+}
+
+
+
+@media screen and (max-width: 1000px) {
+
+    .nav__container{
+        display: flex;
+        /* grid-template-columns: 1fr 4fr 1fr; */
+        /* justify-items:; */
+        justify-content: space-between;
+        /* justify-items: center; */
+        align-items: center;
+        /* padding: 5px 20px 5px 20px; */
+        height: 80px;
+        background-color: #009688;
+        /* box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3); */
+    }
+
+    .nav__container__menu{
+        /* display: grid flex; */
+        display: grid ;
+        grid-template-columns: 1fr 4fr 1fr;
+        justify-items: center;
+        align-items: center;
+        /* padding: 5px 20px 5px 20px; */
+        height: 70px;
+        background-color: white;
+        /* border-bottom: 1px solid rgb(236, 236, 236); */
+        /* box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);   */
+    }
+
+
+    .logo{
+        /* display: flex; */
+        width: 140px;
+
+    }
+
+    .left__section > p{
+        display: none;
+    }
+
+    .left__section > img {
+        display: flex;
+        height: 35px;
+        width: 35px;
+        padding-right: 20px;
+    }
+    .right__section > img {
+        display: flex;
+        height: 35px;
+        width: 35px;
+        padding-right: 20px;
+    }
+
+    .right__section > p{
+        display: none;
+    }
+
+    .menu {
+        display: flex;
+        flex-direction: column;
+        position: fixed;
+        top: 0;
+        z-index: 2;
+        left: -100%; /* off-screen initially */
+        width: 100%;
+        height: 100%;
+        background-color: white;
+        box-shadow: 2px 0 4px rgba(0, 0, 0, 0.3);
+        transition: transform 0.3s ease-in-out;
+        overflow: scroll;
+      }
+      
+      .menu.open {
+        transform: translateX(100%); /* slide in to the right */
+      }
+      .menu.close {
+        transform: translateX(-100%); /* slide in to the right */
+      }
+      
+      ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        text-align: left;
+      }
+      
+      .auth__nav>li {
+        display: flex;
+        width: 100%;
+        padding: 20px;
+        /* border-bottom: 1px solid #eaeaea; */
+        font-size: large;
+        align-items: center;
+      }
+
+      .menu__icon{
+        margin-right: 30px;
+        font-size: large;
+      }
+
+      .auth__nav{
+        display: flex;
+        width: 100%;
+        text-decoration: none;
+        color: black;
+        cursor: pointer;
+        align-items: center;
+    }
+
+}

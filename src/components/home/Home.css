@@ -1,0 +1,32 @@
+.top__text{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.home__page__title{
+    font-size: 36px;
+    line-height: 40px;
+    font-family: "Morton",sans-serif;
+    text-align: center;
+    font-weight: bold;
+    padding-top: 1.8rem;
+    margin-bottom: 15px;
+}
+
+.highlight{
+    color: #f48202;
+    font-weight: bold;
+}
+
+.home__page__subtitle{
+    font-size: 18px;
+    line-height: 25px;
+}
+
+.slider__only__image{
+    display: block;
+    width: 100%;
+    -o-object-fit: cover;
+    object-fit: cover;
+}
