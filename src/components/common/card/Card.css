@@ -1,0 +1,45 @@
+.card__container__div{
+    display: flex;
+    flex-direction: row;
+    width: 350px;
+    height: 150px;
+    background-color: white;
+    margin: 10px;
+    overflow: hidden;
+    box-shadow: rgba(0, 0, 0, 0.408) 0px 2px 4px 0px;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+.card__img__div{
+    /* display: flex; */
+    width: 40%;
+    height: 100%;
+    background-color: rgb(80, 80, 80);
+}
+
+.card__img__div>img{
+    width: 140px;
+    height: 100%;
+    object-fit: cover;
+}
+
+.card__details__div{
+    display: flex;
+    flex-direction: column;
+    padding: 5px 10px 5px 10px;
+    justify-content: center;
+    /* align-items: center; */
+}
+
+.house__details__card {
+    margin: 5px; 
+    font-size:smaller;
+    color: rgb(85, 85, 85);
+}
+
+.house__price__card{
+    font-weight: bold;
+    font-size: larger;
+    margin: 5px
+}

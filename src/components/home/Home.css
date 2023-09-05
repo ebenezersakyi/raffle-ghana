@@ -1,17 +1,29 @@
+.home__container{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
 .top__text{
     display: flex;
     flex-direction: column;
     width: 100%;
+    position: absolute;
+    z-index: 1;
+    top: 40px;
 }
 
 .home__page__title{
     font-size: 36px;
     line-height: 40px;
     font-family: "Morton",sans-serif;
+    color: white;
     text-align: center;
     font-weight: bold;
-    padding-top: 1.8rem;
+    padding-top: 2.5rem;
     margin-bottom: 15px;
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.59);
 }
 
 .highlight{
@@ -20,13 +32,41 @@
 }
 
 .home__page__subtitle{
-    font-size: 18px;
+    font-size: 28px;
     line-height: 25px;
+    color: white;
 }
 
 .slider__only__image{
     display: block;
     width: 100%;
-    -o-object-fit: cover;
+    height: calc(100vh - 80px);
     object-fit: cover;
+}
+
+.img__top__layer{
+    display: block;
+    width: 100%;
+    height: calc(100vh - 80px);
+    object-fit: cover;
+    position: absolute;
+    background-color: rgba(0, 160, 128, 0.169);
+}
+
+.enter__now{
+    background-color: #f48202;
+    padding: 20;
+    border-radius: 7px;
+    color: white;
+    position: absolute;
+    top: 270px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: large;
+    letter-spacing: 2px;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.59);
+}
+
+.enter__now:hover{
+    background-color: #009688;
+    transition: ease-in-out 700ms;
 }

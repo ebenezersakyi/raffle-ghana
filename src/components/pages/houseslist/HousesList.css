@@ -1,0 +1,15 @@
+.browse__container{
+    min-height: calc(100vh - 80px);
+    justify-content: center;
+    align-items: center;
+    padding: 20px 10px 20px 10px;
+}
+
+.property__results__section__list{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    margin-top: 15px;
+}
