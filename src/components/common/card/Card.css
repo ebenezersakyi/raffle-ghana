@@ -11,6 +11,12 @@
     cursor: pointer;
 }
 
+.card__container__div:hover{
+    transform: scale(1.05);
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
+    transition: ease-in-out 500ms;
+}
+
 .card__img__div{
     /* display: flex; */
     width: 40%;
@@ -26,9 +32,11 @@
 
 .card__details__div{
     display: flex;
+    flex: 1;
     flex-direction: column;
     padding: 5px 10px 5px 10px;
     justify-content: center;
+    align-items: center;
     /* align-items: center; */
 }
 

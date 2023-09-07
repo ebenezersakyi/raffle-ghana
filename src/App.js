@@ -10,6 +10,7 @@ import Auth from "./components/auth/Auth.jsx";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { AuthProvider } from "./contexts/AuthContext";
 import HousesList from "./components/pages/houseslist/HousesList";
+import HouseDetails from "./components/pages/houseDetails/HouseDetails";
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/browse" element={<HousesList />} />
+            <Route path="/house-detail" element={<HouseDetails />} />
             {/* <PrivateRoute path="/search" element={<Search/>}/> */}
 
             {/* <Route element={<PrivateRoute />}>

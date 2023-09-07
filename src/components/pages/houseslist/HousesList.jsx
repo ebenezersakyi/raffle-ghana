@@ -55,6 +55,7 @@ const HousesList = () => {
         item.forSale == true
       );
     });
+    console.log("removeUndefined", removeUndefined);
     setHouseToRender(removeUndefined.slice(0, 50));
     setLoadingHouses(false);
   };

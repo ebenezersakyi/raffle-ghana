@@ -18,7 +18,7 @@ import "./Card.css";
 
 export default function MediaControlCard({ item }) {
   // const theme = useTheme();
-  const navigator = useNavigate();
+  const navigate = useNavigate();
 
   function shortenNumber(num) {
     if (num >= 1000000) {
@@ -29,6 +29,14 @@ export default function MediaControlCard({ item }) {
       return num.toString();
     }
   }
+
+  const toDetails = () => {
+    navigate("/house-detail", {
+      state: {
+        data: item,
+      },
+    });
+  };
 
   return (
     // <Card onClick={() => {navigator(`/houseinfo/${item._id}`)}} sx={{ display: 'flex', width: '100%', position:'relative' }}>
@@ -60,21 +68,14 @@ export default function MediaControlCard({ item }) {
     //   />
     // </Card>
 
-    <div
-      className="card__container__div"
-      onClick={() => {
-        navigator(`/houseinfo/${item._id}`);
-      }}
-    >
+    <div className="card__container__div" onClick={toDetails}>
       <div className="card__img__div">
         <img src={item.houseImage[0]} alt="" />
       </div>
       <div className="card__details__div">
         <p className="house__price__card">$ {shortenNumber(item.price)}</p>
         <p className="house__details__card">{item.country}</p>
-        <p className="house__details__card">
-          {item.homeType} {item.forSale ? "for sale" : "for rent"}
-        </p>
+        <p className="house__details__card">{item.homeType}</p>
       </div>
     </div>
   );

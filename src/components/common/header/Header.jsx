@@ -77,7 +77,7 @@ function Header() {
             </a>
           ) : (
             <p>
-              <a href="/auth" className="auth__nav">
+              <a href="/auth" id="sign__in" className="auth__nav">
                 Sign in
               </a>
             </p>
@@ -103,7 +103,7 @@ function Header() {
           <div className="middle__section">
             <a href="/" className="title__text">
               <span>
-                Ghana<span>Raffle</span>
+                Ghana<span className="highlight">Raffle</span>
               </span>
             </a>
           </div>

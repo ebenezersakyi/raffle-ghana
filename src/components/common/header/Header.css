@@ -10,7 +10,7 @@
     background-color: rgb(255, 255, 255);
     /* padding: 10px 0px 10px 0px; */
     /* position: fixed; */
-    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.703);
+    box-shadow: 2px 2px 5px rgba(220, 220, 220, 0.858);
     z-index: 1;
     /* border-bottom: 1px solid rgb(213, 211, 211); */
 }
@@ -71,22 +71,45 @@ padding-left: 20px;
 
 .right__section > p{
     color: white;
-    margin: 18px;
+    margin: 8px;
     font-weight:350;
     font-size: larger;}
 
 .auth__nav{
+    display: flex;
+    justify-content: center;
+    align-items: center;
     text-decoration: none;
-    color: black;
+    color: white;
     cursor: pointer;
-    padding: 10px;
+    font-family:'Times New Roman', Times, serif;
+    font-weight: bold;
+    padding: 12px 10px 12px 10px;
     border-radius: 7px;
-    /* background-color: #025b59; */
+    background-color: #0263F4;
     font-size: large;
+    width: 140px;
+    height: 25px;
+}
+
+#sign__in{
+    background-color: #fff;
+    border: 1px solid #0263F4;
+    color: #0263F4;
+    height: 22px;
 }
 
 .auth__nav:hover{
-    text-decoration: underline;
+    /* text-decoration: underline; */
+    background-color: blue;
+    transition: ease-in-out 500ms;
+}
+#sign__in:hover{
+    /* text-decoration: underline; */
+    background-color: blue;
+    transition: ease-in-out 500ms;
+    color: white;
+    /* border: none; */
 }
 
 .profile__avatar{
@@ -111,7 +134,7 @@ padding-left: 20px;
         align-items: center;
         /* padding: 5px 20px 5px 20px; */
         height: 80px;
-        background-color: #009688;
+        background-color: white;
         /* box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3); */
     }
 
@@ -188,7 +211,7 @@ padding-left: 20px;
       .auth__nav>li {
         display: flex;
         width: 100%;
-        padding: 20px;
+        /* padding: 20px; */
         /* border-bottom: 1px solid #eaeaea; */
         font-size: large;
         align-items: center;
@@ -201,11 +224,20 @@ padding-left: 20px;
 
       .auth__nav{
         display: flex;
-        width: 100%;
+        width: calc(100% - 10px);
         text-decoration: none;
         color: black;
         cursor: pointer;
         align-items: center;
+        background-color: white;
+        padding: 18px 0px 18px 10px;
+        border-radius: 0px;
+        border-bottom: 1px solid rgb(154, 154, 154);
+    }
+    .auth__nav:hover{
+        /* text-decoration: underline; */
+        background-color: white;
+        /* transition: ease-in-out 500ms; */
     }
 
 }
