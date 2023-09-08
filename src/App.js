@@ -16,9 +16,8 @@ function App() {
   return (
     <div className="App">
       <BrowserRouter>
-        <Header />
-
         <AuthProvider>
+          <Header />
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/browse" element={<HousesList />} />
