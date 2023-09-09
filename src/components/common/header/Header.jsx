@@ -209,16 +209,15 @@ function Header() {
           </a>
           {!loggedIn ? (
             <>
-              <a
+              <span
                 onClick={() => setShowAuthDialogue(true)}
-                href=""
                 className="auth__nav"
               >
                 <li>
                   {/* <Login fontSize="large" className="menu__icon" /> */}
                   Login
                 </li>
-              </a>
+              </span>
             </>
           ) : null}
         </ul>
