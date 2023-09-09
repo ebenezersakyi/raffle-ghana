@@ -65,7 +65,7 @@ const HouseDetails = () => {
   const sendMessage = async () => {
     try {
       const response = await fetch(
-        "https://raffle-gh-api.vercel.app/send-sms",
+        `https://real-estate-app-api-2.vercel.app/send-sms`,
         {
           method: "POST",
           headers: {
