@@ -87,3 +87,24 @@
     font-family: serif;
     font-size: 25px;
 }
+
+@media (max-width: 768px) {
+    .content__container{
+        display: flex;
+        flex-direction: column;
+        margin: 50px 20px 50px 20px;
+        background-color: #fff;
+        padding: 20px;
+        flex: 1;
+        width: 94%;
+        box-shadow: 3px 3px 10px rgba(169, 169, 169, 0.649);
+    }
+
+    .property__divs{
+        border-radius: 10px;
+        overflow: hidden;
+        background-color: rgb(248, 248, 248);
+        margin-bottom: 25px;
+        width: 90%;
+    }
+  }
