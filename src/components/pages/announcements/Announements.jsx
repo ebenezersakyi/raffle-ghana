@@ -1,9 +1,8 @@
 import React, { useEffect, useRef, useState } from "react";
-import "./HousesList.css";
+import "./Announcements.css";
 import { BeatLoader } from "react-spinners";
-import Card from "../../common/card/Card.jsx";
 
-const HousesList = () => {
+const Announements = () => {
   const [loadingHouses, setLoadingHouses] = useState(true);
   const [housesToRender, setHouseToRender] = useState([]);
   const scrollContainerRef = useRef(null);
@@ -20,7 +19,7 @@ const HousesList = () => {
     [-0.14577104681994246, 5.704431552659266],
   ];
 
-  const fetchHousesWithinBoundary = async (turfBoundaries, mapBoundaries) => {
+  const fetchHousesWithinBoundary = async () => {
     try {
       const apiResponse = await fetch(
         `${process.env.REACT_APP_API_URL}/houseswithinboundary`,
@@ -33,7 +32,7 @@ const HousesList = () => {
         }
       );
       const data2 = await apiResponse.json();
-      // console.log("data from api", data2.data);
+      //   console.log("data from api", data2.data);
       if (data2.data.length !== 0) {
         // setInitialHouseRender(10);
         filter(data2.data);
@@ -60,34 +59,52 @@ const HousesList = () => {
     setLoadingHouses(false);
   };
 
+  const randomCode = () => {
+    const min = 1000;
+    const max = 2000;
+    const randomNumber = Math.floor(Math.random() * (max - min + 1)) + min;
+    return randomNumber;
+  };
+
   return (
-    <div className="browse__container">
-      <div className="container__search__page">
+    <div className="announ__container">
+      <h2>Announcements</h2>
+      <div className="content__container">
         <div className="results__count">
           {loadingHouses ? (
             <BeatLoader size={10} color="black" />
           ) : (
             <>
-              <span>
+              <span className="title__itm">
                 {/* <b>{housesToRender.length}</b> results */}
-                <b>Browse houses</b>
+                <b>Items</b>
               </span>
             </>
           )}
         </div>
-        <div
-          ref={scrollContainerRef}
-          //   onScroll={() => handleScroll("flipped")}
-          className="property__results__section__list"
-        >
-          {housesToRender.slice(0, 50).map((item, index) => {
-            return <Card key={index} item={item} />;
+
+        <div className="properties__container">
+          {housesToRender.slice(0, 10).map((item, index) => {
+            return (
+              <div className="property__divs">
+                <img src={item.houseImage[0]} alt="" className="ann__img" />
+                <div className="ann__details">
+                  <span className="main">
+                    <b>Value: </b>$ {item.price.toLocaleString()}
+                  </span>
+                  <span className="ann__deet">{item.country}</span>
+                  <span className="ann__deet">{item.homeType}</span>
+                  <span className="ann__deet">
+                    Winning code: <span className="main">{randomCode()}</span>
+                  </span>
+                </div>
+              </div>
+            );
           })}
-          {/* <Footer /> */}
         </div>
       </div>
     </div>
   );
 };
 
-export default HousesList;
+export default Announements;

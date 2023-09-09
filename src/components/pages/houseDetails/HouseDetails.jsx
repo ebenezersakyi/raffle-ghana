@@ -49,7 +49,7 @@ const HouseDetails = () => {
       }
     });
 
-    console.log("props", Location.state);
+    // console.log("props", Location.state);
     setHouse(Location.state.data);
     setMainImage(Location.state.data.houseImage[0]);
   }, []);
@@ -63,6 +63,9 @@ const HouseDetails = () => {
   };
 
   const sendMessage = async () => {
+    const min = 1000;
+    const max = 2000;
+    const randomNumber = Math.floor(Math.random() * (max - min + 1)) + min;
     try {
       const response = await fetch(
         `https://real-estate-app-api-2.vercel.app/send-sms`,
@@ -71,10 +74,17 @@ const HouseDetails = () => {
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({ body: "hello", to: phoneNumber }),
+          body: JSON.stringify({
+            body: `Your code is ${randomNumber}`,
+            to: phoneNumber,
+          }),
         }
       );
-      console.log(response.json());
+      const responseData = await response.json();
+      // console.log("data", responseData);
+      if (responseData.success) {
+        alert(`SMS sent! Your code is: ${randomNumber}`);
+      }
       // setMessage(response.data.message);
     } catch (error) {
       // setMessage("Error sending SMS");
@@ -118,12 +128,27 @@ const HouseDetails = () => {
           {/* <p>Type: {house.description}</p> */}
           {/* <p>For Sale: {house.forSale ? "Yes" : "No"}</p> */}
           {/* <p>House or Land: {house.houseOrLand}</p> */}
+          {/* <div className="deet_inpt">
+            <input
+              className="inpt"
+              type="text"
+              id="phoneNumber"
+              name="phoneNumber"
+              // value={formData.phoneNumber}
+              // onChange={handleChange}
+              // placeholder="eg: +233 123 4567 890"
+              required
+              autoComplete="on"
+            />
+          </div> */}
           <p>Bedrooms: {house.beds || "Not specified"}</p>
           {/* Add more details as needed */}
           <span className="ticket__price">Ticket price: GH¢ 10.00</span>
+          {/* <div className="buy__section"> */}
           <button onClick={buyticket} className="buy-button">
             Buy Ticket
           </button>
+          {/* </div> */}
         </div>
       </div>
     </div>

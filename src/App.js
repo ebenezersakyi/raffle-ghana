@@ -11,6 +11,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { AuthProvider } from "./contexts/AuthContext";
 import HousesList from "./components/pages/houseslist/HousesList";
 import HouseDetails from "./components/pages/houseDetails/HouseDetails";
+import Announcements from "./components/pages/announcements/Announements";
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/browse" element={<HousesList />} />
             <Route path="/house-detail" element={<HouseDetails />} />
+            <Route path="/announcements" element={<Announcements />} />
             {/* <PrivateRoute path="/search" element={<Search/>}/> */}
 
             {/* <Route element={<PrivateRoute />}>
