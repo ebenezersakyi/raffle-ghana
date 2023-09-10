@@ -77,7 +77,7 @@ const Announements = () => {
             <>
               <span className="title__itm">
                 {/* <b>{housesToRender.length}</b> results */}
-                <b>Items</b>
+                <b>End of draw</b>
               </span>
             </>
           )}
@@ -90,10 +90,10 @@ const Announements = () => {
                 <img src={item.houseImage[0]} alt="" className="ann__img" />
                 <div className="ann__details">
                   <span className="main">
-                    <b>Value: </b>$ {item.price.toLocaleString()}
+                    <b>Value: </b>GH¢ {parseInt(item.price).toLocaleString()}
                   </span>
                   <span className="ann__deet">{item.country}</span>
-                  <span className="ann__deet">{item.homeType}</span>
+                  {/* <span className="ann__deet">{item.homeType}</span> */}
                   <span className="ann__deet">
                     Winning code: <span className="main">{randomCode()}</span>
                   </span>

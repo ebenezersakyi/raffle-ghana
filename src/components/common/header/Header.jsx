@@ -238,6 +238,7 @@ function Header() {
                   onChange={handleChange}
                   required
                   autoComplete="on"
+                  className="auth__input"
                 />
               </div>
               <div className="input-container">
@@ -250,6 +251,7 @@ function Header() {
                   onChange={handleChange}
                   required
                   autoComplete="on"
+                  className="auth__input"
                 />
               </div>
               {!haveAccount && (
@@ -264,6 +266,7 @@ function Header() {
                     placeholder="eg: +233 123 4567 890"
                     required
                     autoComplete="on"
+                    className="auth__input"
                   />
                 </div>
               )}

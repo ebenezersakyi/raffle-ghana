@@ -35,8 +35,9 @@
     flex: 1;
     flex-direction: column;
     padding: 5px 10px 5px 10px;
+    text-align: left;
     justify-content: center;
-    align-items: center;
+    /* align-items: center; */
     /* align-items: center; */
 }
 
@@ -48,6 +49,8 @@
 
 .house__price__card{
     font-weight: bold;
-    font-size: larger;
-    margin: 5px
+    font-size: medium;
+    margin: 5px;
+    display: flex;
+    align-items: center;
 }

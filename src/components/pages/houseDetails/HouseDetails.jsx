@@ -16,18 +16,18 @@ const HouseDetails = () => {
   const [mainImage, setMainImage] = useState(null);
   const [userLoggedIn, setLoggedIn] = useState(false);
   const [phoneNumber, setPhoneNumber] = useState("");
-
-  // const accountSid = process.env.REACT_APP_TWILO_SID;
-  // const authToken = process.env.REACT_APP_TWILO_AUTH_TOKEN;
-  // const twiloNumber = process.env.REACT_APP_TWILO_PHONE_NUMBER;
-
-  // const client = twilio(accountSid, authToken);
+  const [ticketQuantity, setTicketQuantity] = useState(1);
+  const [numberOfTicketsSold, setNumberOfTicketsSold] = useState(0);
+  const [ticketPrice, setTicketPrice] = useState(0);
 
   const handleThumbnailClick = (imageUrl) => {
     setMainImage(imageUrl);
   };
 
   useEffect(() => {
+    // randomNumber();
+    setNumberOfTicketsSold(Location.state.ticketsSold);
+    randomTicketPrice();
     firebase.auth().onAuthStateChanged((user) => {
       if (user) {
         setLoggedIn(true);
@@ -57,6 +57,8 @@ const HouseDetails = () => {
   const buyticket = () => {
     if (!userLoggedIn) {
       alert("Please log in");
+    } else if (ticketQuantity == 0) {
+      alert("Please enter a ticket quantity");
     } else {
       sendMessage();
     }
@@ -66,6 +68,16 @@ const HouseDetails = () => {
     const min = 1000;
     const max = 2000;
     const randomNumber = Math.floor(Math.random() * (max - min + 1)) + min;
+
+    let multipleCodes = [];
+    if (ticketQuantity > 1) {
+      for (let i = 0; i < ticketQuantity; i++) {
+        const min = 1000;
+        const max = 2000;
+        const randomNumber = Math.floor(Math.random() * (max - min + 1)) + min;
+        multipleCodes.push(randomNumber);
+      }
+    }
     try {
       const response = await fetch(
         `https://real-estate-app-api-2.vercel.app/send-sms`,
@@ -75,7 +87,11 @@ const HouseDetails = () => {
             "Content-Type": "application/json",
           },
           body: JSON.stringify({
-            body: `Your code is ${randomNumber}`,
+            body: `Number of tickets purchased: ${ticketQuantity} \nTotal cost: GH¢ ${(
+              ticketPrice * ticketQuantity
+            ).toLocaleString()}.00 \nCode: ${
+              ticketQuantity > 1 ? multipleCodes.join(", ") : randomNumber
+            }`,
             to: phoneNumber,
           }),
         }
@@ -83,6 +99,9 @@ const HouseDetails = () => {
       const responseData = await response.json();
       // console.log("data", responseData);
       if (responseData.success) {
+        setNumberOfTicketsSold(
+          parseInt(numberOfTicketsSold) + parseInt(ticketQuantity)
+        );
         alert(`SMS sent! Your code is: ${randomNumber}`);
       }
       // setMessage(response.data.message);
@@ -90,6 +109,22 @@ const HouseDetails = () => {
       // setMessage("Error sending SMS");
       console.error(error);
     }
+  };
+
+  const randomNumber = () => {
+    const min = 10000;
+    const max = 50000;
+    const randomNumber = Math.floor(Math.random() * (max - min + 1)) + min;
+    setNumberOfTicketsSold(randomNumber);
+    // return {randomNumber: randomNumber.toLocaleString(), percentage: (randomNumber/100000)&100}
+  };
+
+  const randomTicketPrice = () => {
+    const min = 10;
+    const max = 100;
+    const randomNumber = Math.floor(Math.random() * (max - min + 1)) + min;
+    setTicketPrice(randomNumber);
+    // return {randomNumber: randomNumber.toLocaleString(), percentage: (randomNumber/100000)&100}
   };
 
   if (house == null) {
@@ -122,32 +157,54 @@ const HouseDetails = () => {
           </div>
         </div>
         <div className="house-info">
-          <h2>{house.country}</h2>
-          <p>Price: GH¢ {house.price.toLocaleString()}</p>
-          <p>Type: {house.homeType}</p>
-          {/* <p>Type: {house.description}</p> */}
-          {/* <p>For Sale: {house.forSale ? "Yes" : "No"}</p> */}
-          {/* <p>House or Land: {house.houseOrLand}</p> */}
-          {/* <div className="deet_inpt">
-            <input
-              className="inpt"
-              type="text"
-              id="phoneNumber"
-              name="phoneNumber"
-              // value={formData.phoneNumber}
-              // onChange={handleChange}
-              // placeholder="eg: +233 123 4567 890"
-              required
-              autoComplete="on"
-            />
-          </div> */}
-          <p>Bedrooms: {house.beds || "Not specified"}</p>
-          {/* Add more details as needed */}
-          <span className="ticket__price">Ticket price: GH¢ 10.00</span>
+          {/* <h2>{house.country}</h2> */}
+          <span className="desc__items">
+            Location <span className="desc__items__blw">{house.country}</span>
+          </span>
+          {/* <p>Price: GH¢ {house.price.toLocaleString()}</p> */}
+          <span className="desc__items">
+            Number of tickets <span className="desc__items__blw">100,000</span>
+          </span>
+          <span className="desc__items">
+            Number of tickets sold
+            <span className="desc__items__blw">
+              {numberOfTicketsSold.toLocaleString()}
+              <span className="percentage">
+                ({((numberOfTicketsSold / 100000) * 100).toFixed(0)}%)
+              </span>
+            </span>
+          </span>
+          <span className="desc__items">
+            Ticket price{" "}
+            <span className="desc__items__blw">GH¢{ticketPrice}.00</span>
+          </span>
+
+          {/* <span className="ticket__price">Ticket price: GH¢10.00</span> */}
+
+          <div className="deet_inpt">
+            <div className="qty">
+              <span>Quantity: </span>
+              <input
+                className="inpt"
+                type="text"
+                // id="phoneNumber"
+                // name="phoneNumber"
+                placeholder="Quantity"
+                required
+                // autoComplete=''
+                value={ticketQuantity}
+                onChange={(e) => setTicketQuantity(e.target.value)}
+              />
+            </div>
+            <span className="total">
+              Total:{" "}
+              <b>GH¢ {(ticketPrice * ticketQuantity).toLocaleString()}.00</b>
+            </span>
+            <button onClick={buyticket} className="buy-button">
+              Buy Ticket
+            </button>
+          </div>
           {/* <div className="buy__section"> */}
-          <button onClick={buyticket} className="buy-button">
-            Buy Ticket
-          </button>
           {/* </div> */}
         </div>
       </div>

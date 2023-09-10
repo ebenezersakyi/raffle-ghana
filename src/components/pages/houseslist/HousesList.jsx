@@ -20,7 +20,7 @@ const HousesList = () => {
     [-0.14577104681994246, 5.704431552659266],
   ];
 
-  const fetchHousesWithinBoundary = async (turfBoundaries, mapBoundaries) => {
+  const fetchHousesWithinBoundary = async () => {
     try {
       const apiResponse = await fetch(
         `${process.env.REACT_APP_API_URL}/houseswithinboundary`,
@@ -34,13 +34,13 @@ const HousesList = () => {
       );
       const data2 = await apiResponse.json();
       // console.log("data from api", data2.data);
-      if (data2.data.length !== 0) {
-        // setInitialHouseRender(10);
-        filter(data2.data);
-        // setLoadingHouses(false);
-      } else {
-        setLoadingHouses(false);
-      }
+      // if (data2.data.length !== 0) {
+      // setInitialHouseRender(10);
+      filter(data2.data);
+      // setLoadingHouses(false);
+      // } else {
+      //   setLoadingHouses(false);
+      // }
     } catch (error) {
       setLoadingHouses(false);
       console.log(error);
@@ -64,9 +64,7 @@ const HousesList = () => {
     <div className="browse__container">
       <div className="container__search__page">
         <div className="results__count">
-          {loadingHouses ? (
-            <BeatLoader size={10} color="black" />
-          ) : (
+          {loadingHouses ? null : (
             <>
               <span>
                 {/* <b>{housesToRender.length}</b> results */}
@@ -75,6 +73,13 @@ const HousesList = () => {
             </>
           )}
         </div>
+
+        {loadingHouses ? (
+          <div className="loading__continer">
+            <BeatLoader size={30} color="black" />{" "}
+          </div>
+        ) : null}
+
         <div
           ref={scrollContainerRef}
           //   onScroll={() => handleScroll("flipped")}

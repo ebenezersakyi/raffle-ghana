@@ -86,6 +86,7 @@
     margin-bottom: 25px;
     font-family: serif;
     font-size: 25px;
+    color: grey;
 }
 
 @media (max-width: 768px) {

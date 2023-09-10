@@ -58,6 +58,8 @@
     flex-direction: column;
     justify-content: center;
     padding: 20px;
+    text-align: left;
+    border-left: 1px solid #c6c6c6;
   }
   
   h2 {
@@ -71,7 +73,39 @@
   
   .ticket__price{
     margin-top: 20px;
-    font-size: 20px;
+    font-size: medium;
+  }
+
+  .deet_inpt{
+    display: flex;
+    flex-direction: column;
+        margin-top: auto;
+  }
+
+  .qty{
+    display: flex;
+    flex-direction: row;
+    /* justify-content: center; */
+    align-items: center;
+    margin-top: 40px;
+  }
+
+  .qty>span{
+    margin-right: 10px;
+  }
+
+  .inpt{
+    width: 55px;
+    height: 35px;
+    background-color: transparent;
+    border: 1px solid grey;
+    border-radius: 4px;
+    outline: none;
+  }
+
+  .total{
+    text-align: left;
+    margin-top: 10px;
   }
 
   .buy-button {
@@ -80,12 +114,34 @@
     border: none;
     padding: 10px 20px;
     cursor: pointer;
+    flex: 1;
     border-radius: 5px;
-    margin-top: auto;
   }
   
   .buy-button:hover {
     background-color: #2980b9;
+  }
+
+  .desc__items{
+    display: flex;
+    flex-direction: column;
+    font-style: italic;
+    font-size:small;
+    font-weight: bold;
+    color: grey;
+    margin-top: 20px;
+  }
+
+  .desc__items__blw{
+    font-style: normal;
+    color: black;
+    font-size: medium;
+  }
+
+  .percentage{
+    margin-left: 5px;
+    font-size: small;
+    color: grey;
   }
   
   @media (max-width: 555px) {

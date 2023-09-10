@@ -17,6 +17,7 @@ import { useNavigate } from "react-router-dom";
 import "./Card.css";
 
 export default function MediaControlCard({ item }) {
+  const [numberOfTicketsSold, setNumberOfTicketsSold] = React.useState(0);
   // const theme = useTheme();
   const navigate = useNavigate();
 
@@ -30,10 +31,23 @@ export default function MediaControlCard({ item }) {
     }
   }
 
+  React.useEffect(() => {
+    randomNumber();
+  }, []);
+
+  const randomNumber = () => {
+    const min = 10000;
+    const max = 50000;
+    const randomNumber = Math.floor(Math.random() * (max - min + 1)) + min;
+    setNumberOfTicketsSold(randomNumber);
+    // return {randomNumber: randomNumber.toLocaleString(), percentage: (randomNumber/100000)&100}
+  };
+
   const toDetails = () => {
     navigate("/house-detail", {
       state: {
         data: item,
+        ticketsSold: numberOfTicketsSold,
       },
     });
   };
@@ -73,9 +87,16 @@ export default function MediaControlCard({ item }) {
         <img src={item.houseImage[0]} alt="" />
       </div>
       <div className="card__details__div">
-        <p className="house__price__card">$ {shortenNumber(item.price)}</p>
+        {/* <p className="house__price__card">$ {shortenNumber(item.price)}</p> */}
+        <span className="house__price__card">
+          100,000 <p className="house__details__card">tickets</p>
+        </span>
+        <span className="house__details__card">
+          <b>{numberOfTicketsSold.toLocaleString()}</b> (
+          {((numberOfTicketsSold / 100000) * 100).toFixed(0)}%) tickets sold
+        </span>
         <p className="house__details__card">{item.country}</p>
-        <p className="house__details__card">{item.homeType}</p>
+        {/* <p className="house__details__card">{item.homeType}</p> */}
       </div>
     </div>
   );
