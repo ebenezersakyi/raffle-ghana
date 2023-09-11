@@ -80,7 +80,7 @@
 .properties__for__you{
     /* display: flex; */
     flex-direction: column;
-    padding: 30px 60px 10px 60px;
+    padding: 20px 20px 10px 20px;
     background-color: rgb(255, 255, 255);
     height: 300px;
     text-align: left;
