@@ -20,6 +20,7 @@ function Header() {
     email: "",
     password: "",
     phoneNumber: "",
+    name: "",
   });
 
   const { signup } = useAuth();
@@ -89,6 +90,7 @@ function Header() {
                 email: formData.email,
                 // _id: data2.data._id,
                 phoneNumber: formData.phoneNumber,
+                name: formData.name,
               });
             setShowAuthDialogue(false);
           } catch (error) {
@@ -132,10 +134,15 @@ function Header() {
     <>
       <nav className="nav__container">
         <div className="middle__section">
-          <a href="/" className="title__text">
-            <span>
+          <a href="/">
+            <img
+              src={require("../../../assets/logo.png")}
+              alt="logo"
+              className="header__img"
+            />
+            {/* <span>
               Ghana<span className="highlight">Raffle</span>
-            </span>
+            </span> */}
           </a>
         </div>
 
@@ -186,11 +193,16 @@ function Header() {
           </div>
 
           <div className="middle__section">
-            <a href="/" className="title__text">
+            <img
+              src={require("../../../assets/logo.png")}
+              alt=""
+              className="header__img"
+            />
+            {/* <a href="/" className="title__text">
               <span>
                 Ghana<span className="highlight">Raffle</span>
               </span>
-            </a>
+            </a> */}
           </div>
 
           <div></div>
@@ -255,20 +267,36 @@ function Header() {
                 />
               </div>
               {!haveAccount && (
-                <div className="input-container">
-                  <label>Phone number</label>
-                  <input
-                    type="text"
-                    id="phoneNumber"
-                    name="phoneNumber"
-                    value={formData.phoneNumber}
-                    onChange={handleChange}
-                    placeholder="eg: +233 123 4567 890"
-                    required
-                    autoComplete="on"
-                    className="auth__input"
-                  />
-                </div>
+                <>
+                  <div className="input-container">
+                    <label>Name</label>
+                    <input
+                      type="text"
+                      id="name"
+                      name="name"
+                      value={formData.name}
+                      onChange={handleChange}
+                      placeholder="Enter your name"
+                      required
+                      autoComplete="on"
+                      className="auth__input"
+                    />
+                  </div>
+                  <div className="input-container">
+                    <label>Phone number</label>
+                    <input
+                      type="text"
+                      id="phoneNumber"
+                      name="phoneNumber"
+                      value={formData.phoneNumber}
+                      onChange={handleChange}
+                      placeholder="eg: +233 123 4567 890"
+                      required
+                      autoComplete="on"
+                      className="auth__input"
+                    />
+                  </div>
+                </>
               )}
               <span
                 onClick={() => {

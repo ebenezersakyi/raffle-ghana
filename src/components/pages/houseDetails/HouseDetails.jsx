@@ -1,17 +1,21 @@
 import React, { useEffect, useState } from "react";
 import "./HouseDetails.css";
 
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { BeatLoader } from "react-spinners";
 
 import firebase from "firebase/compat/app";
 import "firebase/compat/auth";
 import "firebase/compat/firestore";
 
+import { PaystackButton } from "react-paystack";
+
 // const twilio = require("twilio");
 
 const HouseDetails = () => {
   const Location = useLocation();
+  const navigate = useNavigate();
+
   const [house, setHouse] = useState(null);
   const [mainImage, setMainImage] = useState(null);
   const [userLoggedIn, setLoggedIn] = useState(false);
@@ -19,6 +23,34 @@ const HouseDetails = () => {
   const [ticketQuantity, setTicketQuantity] = useState(1);
   const [numberOfTicketsSold, setNumberOfTicketsSold] = useState(0);
   const [ticketPrice, setTicketPrice] = useState(0);
+
+  const publicKey = process.env.REACT_APP_PAYSTACK_PUBLIC_KEY;
+  // const amount = 1000000; // Remember, set in kobo!
+  const [email, setEmail] = useState("");
+  const [name, setName] = useState(null);
+  const [phone, setPhone] = useState("");
+  const [amount, setAmount] = useState(0);
+  const [showCheckout, setShowCheckout] = useState(false);
+
+  const componentProps = {
+    email,
+    amount: amount * 100,
+    metadata: {
+      name,
+      phone,
+    },
+    publicKey,
+    currency: "GHS",
+    text: "Buy Now",
+    onclick: () => {
+      setShowCheckout(false);
+    },
+    onSuccess: () => {
+      sendMessage();
+      alert("Thanks for doing business with us! Come back soon!!");
+    },
+    onClose: () => {},
+  };
 
   const handleThumbnailClick = (imageUrl) => {
     setMainImage(imageUrl);
@@ -42,6 +74,9 @@ const HouseDetails = () => {
             if (doc.exists) {
               const userData = doc.data();
               setPhoneNumber(userData.phoneNumber);
+              setEmail(userData.email);
+              setPhone(userData.phoneNumber);
+              setName(userData.name);
             }
           });
       } else {
@@ -57,14 +92,23 @@ const HouseDetails = () => {
   const buyticket = () => {
     if (!userLoggedIn) {
       alert("Please log in");
-    } else if (ticketQuantity == 0) {
+    } else if (ticketQuantity == 0 || ticketQuantity == undefined) {
       alert("Please enter a ticket quantity");
     } else {
-      sendMessage();
+      setShowCheckout(true);
     }
+    // if (!userLoggedIn) {
+    //   alert("Please log in");
+    // } else if (ticketQuantity == 0) {
+    //   alert("Please enter a ticket quantity");
+    // } else {
+    //   sendMessage();
+    // }
+    // navigate("/checkout");
   };
 
   const sendMessage = async () => {
+    setShowCheckout(false);
     const min = 1000;
     const max = 2000;
     const randomNumber = Math.floor(Math.random() * (max - min + 1)) + min;
@@ -79,30 +123,27 @@ const HouseDetails = () => {
       }
     }
     try {
-      const response = await fetch(
-        `https://real-estate-app-api-2.vercel.app/send-sms`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            body: `Number of tickets purchased: ${ticketQuantity} \nTotal cost: GH¢ ${(
-              ticketPrice * ticketQuantity
-            ).toLocaleString()}.00 \nCode: ${
-              ticketQuantity > 1 ? multipleCodes.join(", ") : randomNumber
-            }`,
-            to: phoneNumber,
-          }),
-        }
-      );
+      const response = await fetch(process.env.REACT_APP_SMS_API, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          body: `Number of tickets purchased: ${ticketQuantity} \nTotal cost: GH¢ ${(
+            ticketPrice * ticketQuantity
+          ).toLocaleString()}.00 \nCode: ${
+            ticketQuantity > 1 ? multipleCodes.join(", ") : randomNumber
+          }`,
+          to: phoneNumber,
+        }),
+      });
       const responseData = await response.json();
       // console.log("data", responseData);
       if (responseData.success) {
         setNumberOfTicketsSold(
           parseInt(numberOfTicketsSold) + parseInt(ticketQuantity)
         );
-        alert(`SMS sent! Your code is: ${randomNumber}`);
+        alert(`SMS sent!`);
       }
       // setMessage(response.data.message);
     } catch (error) {
@@ -124,6 +165,7 @@ const HouseDetails = () => {
     const max = 100;
     const randomNumber = Math.floor(Math.random() * (max - min + 1)) + min;
     setTicketPrice(randomNumber);
+    setAmount(randomNumber);
     // return {randomNumber: randomNumber.toLocaleString(), percentage: (randomNumber/100000)&100}
   };
 
@@ -137,6 +179,27 @@ const HouseDetails = () => {
 
   return (
     <div className="details__container">
+      {showCheckout && (
+        <div className="checkout__div">
+          <div onClick={() => setShowCheckout(false)} className="close__btn">
+            X
+          </div>
+          <div className="checkout__box">
+            <div className="checkout-field">
+              <label>Name</label>
+              <input
+                type="text"
+                id="name"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+              />
+            </div>
+            {name ? (
+              <PaystackButton className="paystack-button" {...componentProps} />
+            ) : null}
+          </div>
+        </div>
+      )}
       <div className="house-details">
         <div className="image-carousel">
           <img
@@ -186,14 +249,18 @@ const HouseDetails = () => {
               <span>Quantity: </span>
               <input
                 className="inpt"
-                type="text"
+                type="number"
                 // id="phoneNumber"
                 // name="phoneNumber"
                 placeholder="Quantity"
                 required
+                min={1}
                 // autoComplete=''
                 value={ticketQuantity}
-                onChange={(e) => setTicketQuantity(e.target.value)}
+                onChange={(e) => {
+                  setTicketQuantity(e.target.value);
+                  setAmount(ticketPrice * e.target.value);
+                }}
               />
             </div>
             <span className="total">
@@ -203,6 +270,7 @@ const HouseDetails = () => {
             <button onClick={buyticket} className="buy-button">
               Buy Ticket
             </button>
+            {/* <PaystackButton className="paystack-button" {...componentProps} /> */}
           </div>
           {/* <div className="buy__section"> */}
           {/* </div> */}

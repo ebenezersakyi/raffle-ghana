@@ -12,6 +12,7 @@ import { AuthProvider } from "./contexts/AuthContext";
 import HousesList from "./components/pages/houseslist/HousesList";
 import HouseDetails from "./components/pages/houseDetails/HouseDetails";
 import Announcements from "./components/pages/announcements/Announements";
+import Checkout from "./components/pages/checkout/Checkout";
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
             <Route path="/browse" element={<HousesList />} />
             <Route path="/house-detail" element={<HouseDetails />} />
             <Route path="/announcements" element={<Announcements />} />
+            <Route path="/checkout" element={<Checkout />} />
             {/* <PrivateRoute path="/search" element={<Search/>}/> */}
 
             {/* <Route element={<PrivateRoute />}>
@@ -39,9 +41,8 @@ function App() {
             />
             <Route path="/downloadplatform" element={<ChoosePlatform />} /> */}
           </Routes>
+          <Footer />
         </AuthProvider>
-
-        <Footer />
       </BrowserRouter>
     </div>
   );

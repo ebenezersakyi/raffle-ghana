@@ -1,3 +1,8 @@
+.main__container{
+    display: flex;
+    flex-direction: column;
+}
+
 .home__container{
     position: relative;
     display: flex;
@@ -40,14 +45,14 @@
 .slider__only__image{
     display: block;
     width: 100%;
-    height: calc(100vh - 80px);
+    height: 400px;
     object-fit: cover;
 }
 
 .img__top__layer{
     display: block;
     width: 100%;
-    height: calc(100vh - 80px);
+    height: 400px;
     object-fit: cover;
     position: absolute;
     background-color: rgba(0, 0, 0, 0.374);
@@ -70,4 +75,14 @@
 .enter__now:hover{
     background-color: blue;
     transition: ease-in-out 400ms;
+}
+
+.properties__for__you{
+    /* display: flex; */
+    flex-direction: column;
+    padding: 30px 60px 10px 60px;
+    background-color: rgb(255, 255, 255);
+    height: 300px;
+    text-align: left;
+    position: relative;
 }

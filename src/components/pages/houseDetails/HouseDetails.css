@@ -4,7 +4,26 @@
     justify-content: center;
     align-items: center;
     padding: 20px;
+    position: relative;
     /* width: 100vw; */
+}
+
+.checkout__div{
+  display: flex;
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  width: 100vw;
+  height: 100vh;
+  background-color: #00000075;
+  justify-content: center;
+  align-items: center;
+}
+
+.checkout__box{
+  padding: 15px;
+  border-radius: 10px;
+  background-color: #fff;
 }
 
 .house-details {

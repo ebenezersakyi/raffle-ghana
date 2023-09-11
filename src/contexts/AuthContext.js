@@ -1,5 +1,6 @@
 import React, { useContext, useState, useEffect } from "react";
 import { auth } from "../../src/firebase";
+import { BeatLoader } from "react-spinners";
 
 const AuthContext = React.createContext();
 
@@ -57,7 +58,21 @@ export function AuthProvider({ children }) {
 
   return (
     <AuthContext.Provider value={value}>
-      {!loading && children}
+      {!loading ? (
+        children
+      ) : (
+        <div
+          style={{
+            height: "100vh",
+            width: "100vw",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <BeatLoader size={25} color="black" />
+        </div>
+      )}
     </AuthContext.Provider>
   );
 }
