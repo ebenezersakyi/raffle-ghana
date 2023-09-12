@@ -1,0 +1,28 @@
+.admin__container{
+    display: flex;
+    min-height: calc(100vh - 80px);
+    width: 100vw;
+    background-color: #fff;
+    /* justify-content: center; */
+    align-items: center;
+}
+
+.properties__container{
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.end__tbn{
+    padding: 10px;
+    width: 100px;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    background-color: rgb(176, 45, 45);
+    color: white;
+    border-radius: 9px;
+    cursor: pointer;
+}

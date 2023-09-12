@@ -3,6 +3,10 @@ import "./HousesList.css";
 import { BeatLoader } from "react-spinners";
 import Card from "../../common/card/Card.jsx";
 
+import firebase from "firebase/compat/app";
+import "firebase/compat/auth";
+import "firebase/compat/firestore";
+
 const HousesList = () => {
   const [loadingHouses, setLoadingHouses] = useState(true);
   const [housesToRender, setHouseToRender] = useState([]);
@@ -47,6 +51,13 @@ const HousesList = () => {
     }
   };
 
+  // const randomTicketPrice = () => {
+  //   const min = 10;
+  //   const max = 100;
+  //   const randomNumber = Math.floor(Math.random() * (max - min + 1)) + min;
+  //   return randomNumber;
+  // };
+
   const filter = (data) => {
     const removeUndefined = data.filter((item) => {
       return (
@@ -55,7 +66,21 @@ const HousesList = () => {
         item.forSale == true
       );
     });
-    // console.log("removeUndefined", removeUndefined);
+
+    // for (let i = 0; i < removeUndefined.length; i++) {
+    //   firebase
+    //     .firestore()
+    //     .collection("houses")
+    //     .doc(removeUndefined[i]._id)
+    //     .set({
+    //       price: randomTicketPrice(),
+    //       location: removeUndefined[i].country,
+    //       ticketsSold: [],
+    //       winningCode: "",
+    //     });
+    // }
+
+    console.log("removeUndefined", removeUndefined);
     setHouseToRender(removeUndefined.slice(0, 50));
     setLoadingHouses(false);
   };

@@ -17,12 +17,14 @@ const HouseDetails = () => {
   const navigate = useNavigate();
 
   const [house, setHouse] = useState(null);
+  const [firebaseHouseData, setFirebaseHouseData] = useState(null);
   const [mainImage, setMainImage] = useState(null);
   const [userLoggedIn, setLoggedIn] = useState(false);
   const [phoneNumber, setPhoneNumber] = useState("");
   const [ticketQuantity, setTicketQuantity] = useState(1);
   const [numberOfTicketsSold, setNumberOfTicketsSold] = useState(0);
   const [ticketPrice, setTicketPrice] = useState(0);
+  // const [ticketNumer, setTicketPrice] = useState(0);
 
   const publicKey = process.env.REACT_APP_PAYSTACK_PUBLIC_KEY;
   // const amount = 1000000; // Remember, set in kobo!
@@ -32,9 +34,11 @@ const HouseDetails = () => {
   const [amount, setAmount] = useState(0);
   const [showCheckout, setShowCheckout] = useState(false);
 
+  const [newTickets, setNewTickets] = useState([]);
+
   const componentProps = {
     email,
-    amount: amount * 100,
+    amount: ticketPrice * ticketQuantity * 100,
     metadata: {
       name,
       phone,
@@ -45,10 +49,30 @@ const HouseDetails = () => {
     onclick: () => {
       setShowCheckout(false);
     },
+    // onSuccess: () => {
+    //   // addToFirebase();
+    //   for (let i = 0; i < ticketQuantity; i++) {
+    //     addToFirebase();
+    //   }
+    //   sendMessage();
+    //   alert("Thanks for doing business with us! Come back soon!!");
+    // },
     onSuccess: () => {
-      sendMessage();
-      alert("Thanks for doing business with us! Come back soon!!");
+      try {
+        for (let i = 0; i < ticketQuantity; i++) {
+          addToFirebase();
+        }
+        sendMessage();
+        setNumberOfTicketsSold(
+          parseInt(numberOfTicketsSold) + parseInt(ticketQuantity)
+        );
+        alert("Thanks for doing business with us! Come back soon!!");
+      } catch (error) {
+        console.error("Error:", error);
+        // Handle the error here
+      }
     },
+
     onClose: () => {},
   };
 
@@ -57,9 +81,30 @@ const HouseDetails = () => {
   };
 
   useEffect(() => {
+    // console.log("Location.state.data._id", Location.state.data._id);
+    firebase
+      .firestore()
+      .collection("houses") // Replace "houses" with your collection name
+      .doc(Location.state.data._id) // Use the correct document ID
+      .get()
+      .then((doc) => {
+        if (doc.exists) {
+          const data = doc.data();
+          console.log("Document data:", doc.data());
+          setFirebaseHouseData(doc.data());
+          setNumberOfTicketsSold(data.ticketsSold.length);
+          setTicketPrice(data.price);
+        } else {
+          console.log("Document does not exist");
+        }
+      })
+      .catch((error) => {
+        console.error("Error getting document:", error);
+      });
+
     // randomNumber();
-    setNumberOfTicketsSold(Location.state.ticketsSold);
-    randomTicketPrice();
+    // setNumberOfTicketsSold(Location.state.ticketsSold);
+    // randomTicketPrice();
     firebase.auth().onAuthStateChanged((user) => {
       if (user) {
         setLoggedIn(true);
@@ -107,6 +152,43 @@ const HouseDetails = () => {
     // navigate("/checkout");
   };
 
+  const min = 100000;
+  const max = 200000;
+
+  function getRandomNumberNotInArray() {
+    const arr = firebaseHouseData.ticketsSold;
+    let randomNumber;
+
+    do {
+      randomNumber = Math.floor(Math.random() * (max - min + 1)) + min;
+    } while ([...arr, ...newTickets].includes(randomNumber));
+    setNewTickets([...newTickets, randomNumber]);
+    return randomNumber;
+  }
+
+  const addToFirebase = (item) => {
+    const docRef = firebase
+      .firestore()
+      .collection("houses")
+      .doc(Location.state.data._id);
+
+    // const newTicketData = {
+    //   ticketNumber: getRandomNumberNotInArray(),
+    // };
+    const newTicketData = getRandomNumberNotInArray();
+
+    docRef
+      .update({
+        ticketsSold: firebase.firestore.FieldValue.arrayUnion(newTicketData),
+      })
+      .then(() => {
+        console.log("Ticket added successfully!");
+      })
+      .catch((error) => {
+        console.error("Error adding ticket: ", error);
+      });
+  };
+
   const sendMessage = async () => {
     setShowCheckout(false);
     const min = 1000;
@@ -140,9 +222,9 @@ const HouseDetails = () => {
       const responseData = await response.json();
       // console.log("data", responseData);
       if (responseData.success) {
-        setNumberOfTicketsSold(
-          parseInt(numberOfTicketsSold) + parseInt(ticketQuantity)
-        );
+        // setNumberOfTicketsSold(
+        //   parseInt(numberOfTicketsSold) + parseInt(ticketQuantity)
+        // );
         alert(`SMS sent!`);
       }
       // setMessage(response.data.message);
@@ -156,7 +238,7 @@ const HouseDetails = () => {
     const min = 10000;
     const max = 50000;
     const randomNumber = Math.floor(Math.random() * (max - min + 1)) + min;
-    setNumberOfTicketsSold(randomNumber);
+    // setNumberOfTicketsSold(randomNumber);
     // return {randomNumber: randomNumber.toLocaleString(), percentage: (randomNumber/100000)&100}
   };
 
