@@ -16,10 +16,12 @@ import { useNavigate } from "react-router-dom";
 
 import "./Card.css";
 
-export default function MediaControlCard({ item }) {
-  const [numberOfTicketsSold, setNumberOfTicketsSold] = React.useState(0);
+export default function MediaControlCard({ item, firebaseHouseData }) {
+  const [numberOfTicketsSold, setNumberOfTicketsSold] = React.useState([]);
   // const theme = useTheme();
   const navigate = useNavigate();
+
+  const firebaseData = firebaseHouseData[0];
 
   function shortenNumber(num) {
     if (num >= 1000000) {
@@ -39,7 +41,9 @@ export default function MediaControlCard({ item }) {
     const min = 10000;
     const max = 50000;
     const randomNumber = Math.floor(Math.random() * (max - min + 1)) + min;
-    setNumberOfTicketsSold(randomNumber);
+    // setNumberOfTicketsSold(randomNumber);
+    setNumberOfTicketsSold(firebaseData.ticketsSold);
+    // console.log("firebaseData.ticketsSold", firebaseData.ticketsSold);
     // return {randomNumber: randomNumber.toLocaleString(), percentage: (randomNumber/100000)&100}
   };
 
@@ -92,8 +96,9 @@ export default function MediaControlCard({ item }) {
           100,000 <p className="house__details__card">tickets</p>
         </span>
         <span className="house__details__card">
-          <b>{numberOfTicketsSold.toLocaleString()}</b> (
-          {((numberOfTicketsSold / 100000) * 100).toFixed(0)}%) tickets sold
+          <b>{numberOfTicketsSold.length}</b> (
+          {((numberOfTicketsSold.length / 100000) * 100).toFixed(0)}%) tickets
+          sold
         </span>
         <p className="house__details__card">{item.country}</p>
         {/* <p className="house__details__card">{item.homeType}</p> */}

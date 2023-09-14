@@ -10,9 +10,11 @@ import "firebase/compat/firestore";
 const HousesList = () => {
   const [loadingHouses, setLoadingHouses] = useState(true);
   const [housesToRender, setHouseToRender] = useState([]);
+  const [dbHouses, setDbHouses] = useState([]);
   const scrollContainerRef = useRef(null);
 
   useEffect(() => {
+    getData();
     fetchHousesWithinBoundary();
   }, []);
 
@@ -23,6 +25,33 @@ const HousesList = () => {
     [-0.14577104681994246, 5.606719220138464],
     [-0.14577104681994246, 5.704431552659266],
   ];
+
+  const getData = () => {
+    const db = firebase.firestore();
+    const housesCollection = db.collection("houses");
+
+    housesCollection
+      .get()
+      .then((querySnapshot) => {
+        const updatedHouses = [];
+        querySnapshot.forEach((item) => {
+          const data2 = item.data();
+          updatedHouses.push({
+            _id: item.id,
+            location: data2.location,
+            price: data2.price,
+            ticketsSold: data2.ticketsSold,
+            winningCode: data2.winningCode,
+          });
+        });
+
+        setDbHouses(updatedHouses); // Update the state with the new data
+        console.log("houses", updatedHouses); // Log the updated state here
+      })
+      .catch((error) => {
+        console.error("Error getting documents: ", error);
+      });
+  };
 
   const fetchHousesWithinBoundary = async () => {
     try {
@@ -80,7 +109,7 @@ const HousesList = () => {
     //     });
     // }
 
-    console.log("removeUndefined", removeUndefined);
+    // console.log("removeUndefined", removeUndefined);
     setHouseToRender(removeUndefined.slice(0, 50));
     setLoadingHouses(false);
   };
@@ -111,7 +140,14 @@ const HousesList = () => {
           className="property__results__section__list"
         >
           {housesToRender.slice(0, 50).map((item, index) => {
-            return <Card key={index} item={item} />;
+            const idenHouse = dbHouses.filter((item2, index) => {
+              return item2._id == item._id;
+            });
+            // console.log("idenHouse", idenHouse);
+            // console.log("housesToRender", housesToRender);
+            return (
+              <Card firebaseHouseData={idenHouse} key={index} item={item} />
+            );
           })}
           {/* <Footer /> */}
         </div>

@@ -4,10 +4,16 @@ import { Link, useNavigate } from "react-router-dom";
 
 import Card from "../common/card/Card.jsx";
 
+import firebase from "firebase/compat/app";
+import "firebase/compat/auth";
+import "firebase/compat/firestore";
+import { BeatLoader } from "react-spinners";
+
 const Home = () => {
   const navigate = useNavigate();
   const [loadingHouses, setLoadingHouses] = useState(true);
   const [housesToRender, setHouseToRender] = useState([]);
+  const [dbHouses, setDbHouses] = useState([]);
   const scrollContainerRef = useRef(null);
 
   const browseButtonPressed = () => {
@@ -15,8 +21,36 @@ const Home = () => {
   };
 
   useEffect(() => {
+    getData();
     fetchHousesWithinBoundary();
   }, []);
+
+  const getData = () => {
+    const db = firebase.firestore();
+    const housesCollection = db.collection("houses");
+
+    housesCollection
+      .get()
+      .then((querySnapshot) => {
+        const updatedHouses = [];
+        querySnapshot.forEach((item) => {
+          const data2 = item.data();
+          updatedHouses.push({
+            _id: item.id,
+            location: data2.location,
+            price: data2.price,
+            ticketsSold: data2.ticketsSold,
+            winningCode: data2.winningCode,
+          });
+        });
+
+        setDbHouses(updatedHouses); // Update the state with the new data
+        // console.log("houses", updatedHouses); // Log the updated state here
+      })
+      .catch((error) => {
+        console.error("Error getting documents: ", error);
+      });
+  };
 
   const data = [
     [-0.14577104681994246, 5.704431552659266],
@@ -61,7 +95,7 @@ const Home = () => {
         item.forSale == true
       );
     });
-    console.log("removeUndefined", removeUndefined);
+    // console.log("removeUndefined", removeUndefined);
     setHouseToRender(removeUndefined.slice(0, 50));
     setLoadingHouses(false);
   };
@@ -119,20 +153,45 @@ const Home = () => {
             {">"}
           </button>
         </div> */}
-        <ul
-          // ref={listRef}
-          style={{ display: "flex", flexDirection: "row", overflow: "scroll" }}
-        >
-          {housesToRender.slice(0, 10).map((item, index) => {
-            return (
-              <ui>
-                <div key={item._id} className="card__container">
-                  <Card item={item} />
-                </div>
-              </ui>
-            );
-          })}
-        </ul>
+        {loadingHouses ? (
+          <div
+            style={{
+              width: "100%",
+              padding: "15px 0px 15px 0px",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            <BeatLoader color="black" size={25} />
+          </div>
+        ) : (
+          <ul
+            // ref={listRef}
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              overflow: "scroll",
+            }}
+          >
+            {housesToRender.slice(0, 10).map((item, index) => {
+              const idenHouse = dbHouses.filter((item2, index) => {
+                return item2._id == item._id;
+              });
+
+              // console.log("idenHouse", idenHouse);
+              return (
+                <ui key={index}>
+                  <div key={item._id} className="card__container">
+                    {dbHouses.length > 0 && (
+                      <Card firebaseHouseData={idenHouse} item={item} />
+                    )}
+                  </div>
+                </ui>
+              );
+            })}
+          </ul>
+        )}
       </div>
     </div>
   );

@@ -205,31 +205,49 @@ const HouseDetails = () => {
       }
     }
     try {
-      const response = await fetch(process.env.REACT_APP_SMS_API, {
+      // const response = await fetch(process.env.REACT_APP_SMS_API, {
+      //   method: "POST",
+      //   headers: {
+      //     "Content-Type": "application/json",
+      //   },
+      //   body: JSON.stringify({
+      //     body: `Number of tickets purchased: ${ticketQuantity} \nTotal cost: GH¢ ${(
+      //       ticketPrice * ticketQuantity
+      //     ).toLocaleString()}.00 \nCode: ${
+      //       ticketQuantity > 1 ? multipleCodes.join(", ") : randomNumber
+      //     }`,
+      //     to: phoneNumber,
+      //   }),
+      // });
+
+      const response = await fetch("https://deywuro.com/api/sms", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          body: `Number of tickets purchased: ${ticketQuantity} \nTotal cost: GH¢ ${(
+          // body: `Number of tickets purchased: ${ticketQuantity} \nTotal cost: GH¢ ${(
+          //   ticketPrice * ticketQuantity
+          // ).toLocaleString()}.00 \nCode: ${
+          //   ticketQuantity > 1 ? multipleCodes.join(", ") : randomNumber
+          // }`,
+          // to: phoneNumber,
+          userName: "ebenezersakyi_",
+          password: "705b0f",
+          destinaton: phoneNumber,
+          source: "Efie Akensie",
+          message: `Number of tickets purchased: ${ticketQuantity} \nTotal cost: GH¢ ${(
             ticketPrice * ticketQuantity
           ).toLocaleString()}.00 \nCode: ${
             ticketQuantity > 1 ? multipleCodes.join(", ") : randomNumber
           }`,
-          to: phoneNumber,
         }),
       });
       const responseData = await response.json();
-      // console.log("data", responseData);
       if (responseData.success) {
-        // setNumberOfTicketsSold(
-        //   parseInt(numberOfTicketsSold) + parseInt(ticketQuantity)
-        // );
         alert(`SMS sent!`);
       }
-      // setMessage(response.data.message);
     } catch (error) {
-      // setMessage("Error sending SMS");
       console.error(error);
     }
   };

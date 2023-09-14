@@ -119,6 +119,7 @@ function Header() {
       userEmail == "ysasu38@gmail.com"
     ) {
       navigate("/admin");
+      setIsOpen(false);
     }
   };
 
@@ -241,7 +242,33 @@ function Header() {
                 </li>
               </span>
             </>
-          ) : null}
+          ) : (
+            // <span onClick={() => toAdmin()} className="profile__avatar">
+            //   {/* <AccountCircleIcon fontSize="large" /> */}
+            //   <img
+            //     style={{ width: 50, height: 50, borderRadius: 360 }}
+            //     src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHgAAAB4CAMAAAAOusbgAAAAYFBMVEX////MzMxNTU3R0dHIyMhKSkr39/dGRkb8/Pzn5+fU1NRBQUHc3Nzs7Ow+Pj7h4eFkZGQ4ODiTk5OgoKBWVla3t7dcXFxzc3OsrKyBgYFqamozMzOLi4u9vb17e3umpqYN9S91AAAD/UlEQVRoge2a65KiMBCFBxIIBMQgoIiOvv9bbnCccQZP5wJo1Vbl/N2Bb/uS7k7jx0dQUFBQUFBQUJBNWZZqZdk7kelmW0rGolFMlttN+gZ8lpcs4tEf8YiV+WvZm3LCfMB5uXkZNp+aOjU8fwl2a6Te2dvVsbmd+qV1rU6lg7l3o2W6HtfZ3HWNzko/bsTLVc5Wyoj3s1H4n9Zwd0pRu2a3azoKvZicwqyS3aWohBBFVVw6Cd29kAy5MlJ1Et+V1CpCVi8jIz8zvot/sDd0vOMIvYCcgffJayziiUSyQ385P7fBOeKDSKbcET2AmJRzufnzy/j+ydw7eQ/+eGYlQQFWBHeMNLB5XpifjwlrKoqrbT4/x5nN4aICvUfx/TZ5Dx6Y4+zntxgNjuOqAantn9nb55fIg8FgbfIB1DD/yQCkCm/N4BY9s4LB0aeRq8mf4CHfKINXRF1hBhcdesqPuwFeY70xt3R29SC7uN/Ui4YO1tgsRmntVzgz1A1ngrnPiQJVWoOvNldfIdgnvfB4Ny+5fHyN+rDWp5mLj5P2lLuviQGPt2YwKiCj3HsUOkyjlLlyoS4ReR0oVLZGn1nAihh13es1cXU4WmIcH/Fz7tkFJ2VLUxwFG6Puaq5cnNSWpnhzNmqMHmmdQYcxS06PauF/2RmMr2nczo3RwBe5nyfiGLuA8ZPLwNJ8mEYlCsZ4IdjanKj25A7GyWUt1Vq4WDuPmkSPsPo6GbCn3bsE8fzO1o/RnTHyKCBUyeTKPNArore4l0yiSehRwHSF6agtjXuToNqiqT+RvcmnLRIVRIPpep0cKLDHIECktQYfafCRfMhjzKR2eYYiQhUPv8GaXF7ymgLX5ArdZ7yFA/3N5IHwdTKQueV1RSZ9Td2f4L3J29OGAyXxOJC0uNp5X9rgNfUGxr6mynTke00l04uYvIhpK5qxiyB8zS4YfCFC7L2KIIf6M1yxoSXXPIOpKLMdBhMd0TfCo0CUmZQl5epSSsCetc2cpgtj18tAbZySdrhcn74TzFopTnoUk70SIqGbRCKE6idWz9yV/1pIMN4ouKj+Cxeq+bWsn7s2fhROxndtYcXe0EX7+E4we1H+kckfrAv1Sz9onz48VTpiz7EH9oaOz1zn2bLPMP1QkUt5WqIa+oUfnrYnp9hOlZwWf0nOkzkWJyt8Ud0ozxDrIKtVfi+Qnq3Lj7+qzmt9u+6Fh7uF6FfCam0HZ6OrYd0fKHSFU6SLqlsVq5U1J/tG4NS84gcwWR/XpttiHfcv+90NP9Y1alKJqOuj/3jlo5SfVVUXujF/SxR1tT8v/TTvxM55czyofau1V4djw/M3UB/4dKOVvhMZFBQUFBQUFPS/6h99ITd40h9XeQAAAABJRU5ErkJggg=="
+            //     alt=""
+            //   />
+            //   {/* <p>{userEmail}</p> */}
+            // </span>
+            <span
+              onClick={() => toAdmin()}
+              // href="/announcements"
+              className="auth__nav"
+            >
+              <li>
+                {/* <Sell fontSize="large" className="menu__icon" /> */}
+                {/* Announcements */}
+                <img
+                  style={{ width: 50, height: 50, borderRadius: 360 }}
+                  src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHgAAAB4CAMAAAAOusbgAAAAYFBMVEX////MzMxNTU3R0dHIyMhKSkr39/dGRkb8/Pzn5+fU1NRBQUHc3Nzs7Ow+Pj7h4eFkZGQ4ODiTk5OgoKBWVla3t7dcXFxzc3OsrKyBgYFqamozMzOLi4u9vb17e3umpqYN9S91AAAD/UlEQVRoge2a65KiMBCFBxIIBMQgoIiOvv9bbnCccQZP5wJo1Vbl/N2Bb/uS7k7jx0dQUFBQUFBQUJBNWZZqZdk7kelmW0rGolFMlttN+gZ8lpcs4tEf8YiV+WvZm3LCfMB5uXkZNp+aOjU8fwl2a6Te2dvVsbmd+qV1rU6lg7l3o2W6HtfZ3HWNzko/bsTLVc5Wyoj3s1H4n9Zwd0pRu2a3azoKvZicwqyS3aWohBBFVVw6Cd29kAy5MlJ1Et+V1CpCVi8jIz8zvot/sDd0vOMIvYCcgffJayziiUSyQ385P7fBOeKDSKbcET2AmJRzufnzy/j+ydw7eQ/+eGYlQQFWBHeMNLB5XpifjwlrKoqrbT4/x5nN4aICvUfx/TZ5Dx6Y4+zntxgNjuOqAantn9nb55fIg8FgbfIB1DD/yQCkCm/N4BY9s4LB0aeRq8mf4CHfKINXRF1hBhcdesqPuwFeY70xt3R29SC7uN/Ui4YO1tgsRmntVzgz1A1ngrnPiQJVWoOvNldfIdgnvfB4Ny+5fHyN+rDWp5mLj5P2lLuviQGPt2YwKiCj3HsUOkyjlLlyoS4ReR0oVLZGn1nAihh13es1cXU4WmIcH/Fz7tkFJ2VLUxwFG6Puaq5cnNSWpnhzNmqMHmmdQYcxS06PauF/2RmMr2nczo3RwBe5nyfiGLuA8ZPLwNJ8mEYlCsZ4IdjanKj25A7GyWUt1Vq4WDuPmkSPsPo6GbCn3bsE8fzO1o/RnTHyKCBUyeTKPNArore4l0yiSehRwHSF6agtjXuToNqiqT+RvcmnLRIVRIPpep0cKLDHIECktQYfafCRfMhjzKR2eYYiQhUPv8GaXF7ymgLX5ArdZ7yFA/3N5IHwdTKQueV1RSZ9Td2f4L3J29OGAyXxOJC0uNp5X9rgNfUGxr6mynTke00l04uYvIhpK5qxiyB8zS4YfCFC7L2KIIf6M1yxoSXXPIOpKLMdBhMd0TfCo0CUmZQl5epSSsCetc2cpgtj18tAbZySdrhcn74TzFopTnoUk70SIqGbRCKE6idWz9yV/1pIMN4ouKj+Cxeq+bWsn7s2fhROxndtYcXe0EX7+E4we1H+kckfrAv1Sz9onz48VTpiz7EH9oaOz1zn2bLPMP1QkUt5WqIa+oUfnrYnp9hOlZwWf0nOkzkWJyt8Ud0ozxDrIKtVfi+Qnq3Lj7+qzmt9u+6Fh7uF6FfCam0HZ6OrYd0fKHSFU6SLqlsVq5U1J/tG4NS84gcwWR/XpttiHfcv+90NP9Y1alKJqOuj/3jlo5SfVVUXujF/SxR1tT8v/TTvxM55czyofau1V4djw/M3UB/4dKOVvhMZFBQUFBQUFPS/6h99ITd40h9XeQAAAABJRU5ErkJggg=="
+                  alt=""
+                />
+                <p>{userEmail}</p>
+              </li>
+            </span>
+          )}
         </ul>
       </div>
 
