@@ -11,6 +11,7 @@ const HousesList = () => {
   const [loadingHouses, setLoadingHouses] = useState(true);
   const [housesToRender, setHouseToRender] = useState([]);
   const [dbHouses, setDbHouses] = useState([]);
+  const [showFilter, setShowFilter] = useState(false);
   const scrollContainerRef = useRef(null);
 
   useEffect(() => {
@@ -115,44 +116,147 @@ const HousesList = () => {
   };
 
   return (
-    <div className="browse__container">
-      <div className="container__search__page">
-        <div className="results__count">
-          {loadingHouses ? null : (
-            <>
-              <span>
-                {/* <b>{housesToRender.length}</b> results */}
-                <b>Browse houses</b>
-              </span>
-            </>
-          )}
-        </div>
-
-        {loadingHouses ? (
-          <div className="loading__continer">
-            <BeatLoader size={30} color="black" />{" "}
+    <>
+      <div className="browse__container">
+        <div className="container__search__page">
+          <div className="results__count">
+            {loadingHouses ? null : (
+              <div className="top__section">
+                <span>
+                  {/* <b>{housesToRender.length}</b> results */}
+                  <b>Browse houses</b>
+                </span>
+                <div
+                  onClick={() => setShowFilter(true)}
+                  className="all__filter__botton"
+                >
+                  <p>All filters</p>
+                  <img
+                    src="https://www.svgrepo.com/show/509905/dropdown-arrow.svg"
+                    alt=""
+                  />
+                </div>
+              </div>
+            )}
           </div>
-        ) : null}
 
-        <div
-          ref={scrollContainerRef}
-          //   onScroll={() => handleScroll("flipped")}
-          className="property__results__section__list"
-        >
-          {housesToRender.slice(0, 50).map((item, index) => {
-            const idenHouse = dbHouses.filter((item2, index) => {
-              return item2._id == item._id;
-            });
-            // console.log("idenHouse", idenHouse);
-            // console.log("housesToRender", housesToRender);
-            return (
-              <Card firebaseHouseData={idenHouse} key={index} item={item} />
-            );
-          })}
-          {/* <Footer /> */}
+          {loadingHouses ? (
+            <div className="loading__continer">
+              <BeatLoader size={30} color="black" />{" "}
+            </div>
+          ) : null}
+
+          <div
+            ref={scrollContainerRef}
+            //   onScroll={() => handleScroll("flipped")}
+            className="property__results__section__list"
+          >
+            {housesToRender.slice(0, 50).map((item, index) => {
+              const idenHouse = dbHouses.filter((item2, index) => {
+                return item2._id == item._id;
+              });
+              // console.log("idenHouse", idenHouse);
+              // console.log("housesToRender", housesToRender);
+              return (
+                <>
+                  {dbHouses.length > 0 && (
+                    <Card
+                      firebaseHouseData={idenHouse}
+                      key={index}
+                      item={item}
+                    />
+                  )}
+                </>
+              );
+            })}
+            {/* <Footer /> */}
+          </div>
         </div>
       </div>
-    </div>
+
+      {showFilter && (
+        <div className="auth__container">
+          <div className="auth__box">
+            {/* <form className="signin-form" onSubmit={handleSubmit}>
+              <h2>Sign In</h2>
+              <div className="input-container">
+                <label>E-mail</label>
+                <input
+                  type="text"
+                  id="email"
+                  name="email"
+                  value={formData.username}
+                  onChange={handleChange}
+                  required
+                  autoComplete="on"
+                  className="auth__input"
+                />
+              </div>
+              <div className="input-container">
+                <label>Password</label>
+                <input
+                  type="password"
+                  id="password"
+                  name="password"
+                  value={formData.password}
+                  onChange={handleChange}
+                  required
+                  autoComplete="on"
+                  className="auth__input"
+                />
+              </div>
+              {!haveAccount && (
+                <>
+                  <div className="input-container">
+                    <label>Name</label>
+                    <input
+                      type="text"
+                      id="name"
+                      name="name"
+                      value={formData.name}
+                      onChange={handleChange}
+                      placeholder="Enter your name"
+                      required
+                      autoComplete="on"
+                      className="auth__input"
+                    />
+                  </div>
+                  <div className="input-container">
+                    <label>Phone number</label>
+                    <input
+                      type="text"
+                      id="phoneNumber"
+                      name="phoneNumber"
+                      value={formData.phoneNumber}
+                      onChange={handleChange}
+                      placeholder="eg: +233 123 4567 890"
+                      required
+                      autoComplete="on"
+                      className="auth__input"
+                    />
+                  </div>
+                </>
+              )}
+              <span
+                onClick={() => {
+                  setHaveAccount(!haveAccount);
+                }}
+                className="toggle__account__state"
+              >
+                {haveAccount
+                  ? "Don't have an account? Sign up"
+                  : "Already have an account? Sign In"}
+              </span>
+              <button type="submit">Sign In</button>
+            </form> */}
+            <span className="signin-form">Filters</span>
+          </div>
+          <div onClick={() => setShowFilter(false)} className="close__btn">
+            X
+          </div>
+        </div>
+      )}
+    </>
   );
 };
 

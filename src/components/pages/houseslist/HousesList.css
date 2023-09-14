@@ -21,3 +21,39 @@
     justify-content: center;
     align-items: center;
 }
+
+.top__section{
+    display:flex;
+    align-items: center;
+    padding: 0px 20px 15px 20px;
+    border-bottom: 1px solid rgb(241, 241, 241);
+}
+
+.all__filter__botton{
+    display: flex;
+    border: 1px solid rgba(206, 206, 206, 0.987);
+    padding: 10px;
+    background-color: white;
+    /* width: 30px; */
+    height: 17px;
+    justify-content: center;
+    align-items: center;
+    margin: 0 5px 0 15px;
+    border-radius: 5px;
+    flex-direction: row;
+    cursor: pointer;
+}
+
+.all__filter__botton:hover{
+    border: 1px solid rgba(0, 0, 255, 0.859);
+    /* color: blue; */
+}
+
+/* .all__filter__botton>p{
+
+} */
+
+.all__filter__botton>img{
+    height: 20px ;
+    margin-left: 7px;
+}
