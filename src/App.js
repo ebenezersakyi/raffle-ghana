@@ -14,6 +14,7 @@ import HouseDetails from "./components/pages/houseDetails/HouseDetails";
 import Announcements from "./components/pages/announcements/Announements";
 import Checkout from "./components/pages/checkout/Checkout";
 import Admin from "./components/pages/admin/Admin";
+import NextDraw from "./components/common/nextDraw/NextDraw";
 
 function App() {
   return (
@@ -46,6 +47,7 @@ function App() {
           <Footer />
         </AuthProvider>
       </BrowserRouter>
+      <NextDraw />
     </div>
   );
 }
