@@ -1,8 +1,8 @@
 import React, { useEffect, useRef, useState } from "react";
-import "./Announcements.css";
+import "./Winners.css";
 import { BeatLoader } from "react-spinners";
 
-const Announements = () => {
+const Winners = () => {
   const [loadingHouses, setLoadingHouses] = useState(true);
   const [housesToRender, setHouseToRender] = useState([]);
   const scrollContainerRef = useRef(null);
@@ -98,6 +98,19 @@ const Announements = () => {
                     Winning code: <span className="main">{randomCode()}</span>
                   </span>
                 </div>
+                <div className="winner">
+                  <img
+                    src="https://www.ugoflip.com/_next/image?url=https%3A%2F%2Fugoflip-cms.fra1.digitaloceanspaces.com%2F1c6211204f71a0e85a0ff0c56f5fb625.png&w=128&q=75"
+                    alt=""
+                    className="win__img"
+                  />
+                  <span className="win_deets">
+                    <span>
+                      <b>John Doe</b>
+                    </span>
+                    <span>Accra, Ghana</span>
+                  </span>
+                </div>
               </div>
             );
           })}
@@ -107,4 +120,4 @@ const Announements = () => {
   );
 };
 
-export default Announements;
+export default Winners;

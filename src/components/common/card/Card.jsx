@@ -34,6 +34,7 @@ export default function MediaControlCard({ item, firebaseHouseData }) {
   }
 
   React.useEffect(() => {
+    console.log("itemgaga", item);
     randomNumber();
   }, []);
 

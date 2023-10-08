@@ -11,6 +11,7 @@ import { BeatLoader } from "react-spinners";
 import Carousel from "../common/carousel/Carousel";
 import HeroIntro from "../common/heroIntro/HeroIntro";
 import Testimony from "../common/testimony/Testimony";
+import NextDraw from "../common/nextDraw/NextDraw";
 
 const Home = () => {
   const videoRef = useRef(null);
@@ -122,28 +123,30 @@ const Home = () => {
   };
 
   return (
-    <div className="main__container">
-      <div className="home__container">
-        <div className="top__text">
-          <h1 className="home__page__title">Win Your Dream Home!</h1>
-          {/* <h1 className="home__page__title">
+    <>
+      <NextDraw />
+      <div className="main__container">
+        <div className="home__container">
+          <div className="top__text">
+            <h1 className="home__page__title">Win Your Dream Home!</h1>
+            {/* <h1 className="home__page__title">
             Win <span className="highlight">Your</span> Dream Home!
           </h1> */}
-          <p className="home__page__subtitle">
-            Win the raffle, fund your property dreams!
-          </p>
-          <button onClick={browseButtonPressed} className="enter__now">
-            Browse houses
-          </button>
-        </div>
-        <div className="img__top__layer"></div>
+            <p className="home__page__subtitle">
+              Win the raffle, fund your property dreams!
+            </p>
+            <button onClick={browseButtonPressed} className="enter__now">
+              Browse houses
+            </button>
+          </div>
+          <div className="img__top__layer"></div>
 
-        {/* <img
+          {/* <img
           className="slider__only__image"
           src="https://cdn.luxe.digital/media/20230123162705/most-expensive-houses-in-the-world-reviews-luxe-digital.jpg"
           alt="dreamhome"
         /> */}
-        {/* <video
+          {/* <video
           data-src="https://cdn.shopify.com/videos/c/o/v/e861b00cb62e40189c37865de5d68453.mp4"
           style="z-index: 1"
           className="slider__only__image"
@@ -155,44 +158,44 @@ const Home = () => {
           data-width="default"
           src="https://cdn.shopify.com/videos/c/o/v/e861b00cb62e40189c37865de5d68453.mp4"
         ></video> */}
-        <video ref={videoRef} playsInline className="slider__only__image" />
-        {/* <source
+          <video ref={videoRef} playsInline className="slider__only__image" />
+          {/* <source
             src="https://cdn.shopify.com/videos/c/o/v/e861b00cb62e40189c37865de5d68453.mp4"
             type="video/mp4"
           /> */}
-        {/* Your browser does not support the video tag. */}
-        {/* </video> */}
-        <div className="hero__icons">
-          <span className="icons">
-            <img
-              className="icons__img"
-              src="https://www.svgrepo.com/show/448460/guide.svg"
-              alt=""
-            />
-            <span>Rules</span>
-          </span>
-          <span className="icons">
-            <img
-              className="icons__img"
-              src="https://www.svgrepo.com/show/528992/gallery-wide.svg"
-              alt=""
-            />
-            <span>Gallery</span>
-          </span>
+          {/* Your browser does not support the video tag. */}
+          {/* </video> */}
+          <div className="hero__icons">
+            <span className="icons">
+              <img
+                className="icons__img"
+                src="https://www.svgrepo.com/show/448460/guide.svg"
+                alt=""
+              />
+              <span>Rules</span>
+            </span>
+            <span className="icons">
+              <img
+                className="icons__img"
+                src="https://www.svgrepo.com/show/528992/gallery-wide.svg"
+                alt=""
+              />
+              <span>Gallery</span>
+            </span>
+          </div>
         </div>
-      </div>
 
-      <HeroIntro />
+        <HeroIntro />
 
-      <div className="properties__for__you">
-        <div className="for__you__text">
-          <span className="trending__now">Trending now</span>
-          <span className="play__to__win">Play to win!</span>
-        </div>
-        {/* <p style={{ marginTop: 5, marginBottom: 0, color: "GrayText" }}>
+        <div className="properties__for__you">
+          <div className="for__you__text">
+            <span className="trending__now">Trending now</span>
+            <span className="play__to__win">Play to win!</span>
+          </div>
+          {/* <p style={{ marginTop: 5, marginBottom: 0, color: "GrayText" }}>
           {locIndex.area}
         </p> */}
-        {/* <div className="scroll__container">
+          {/* <div className="scroll__container">
           <button
             className="scroll__buttons"
             // onClick={() => handleButtonClick("left")}
@@ -206,43 +209,43 @@ const Home = () => {
             {">"}
           </button>
         </div> */}
-        {loadingHouses ? (
-          <div
-            style={{
-              width: "100%",
-              padding: "15px 0px 15px 0px",
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-            }}
-          >
-            <BeatLoader color="black" size={25} />
-          </div>
-        ) : (
-          <ul
-            // ref={listRef}
-            className="scroll__container"
-          >
-            {housesToRender.slice(0, 10).map((item, index) => {
-              const idenHouse = dbHouses.filter((item2, index) => {
-                return item2._id == item._id;
-              });
+          {loadingHouses ? (
+            <div
+              style={{
+                width: "100%",
+                padding: "15px 0px 15px 0px",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
+              <BeatLoader color="black" size={25} />
+            </div>
+          ) : (
+            <ul
+              // ref={listRef}
+              className="scroll__container"
+            >
+              {housesToRender.slice(0, 10).map((item, index) => {
+                const idenHouse = dbHouses.filter((item2, index) => {
+                  return item2._id == item._id;
+                });
 
-              console.log("idenHouse", idenHouse);
-              return (
-                <ui key={index}>
-                  <div key={item._id} className="card__container">
-                    {dbHouses.length > 0 && (
-                      <Card firebaseHouseData={idenHouse} item={item} />
-                    )}
-                  </div>
-                </ui>
-              );
-            })}
-          </ul>
-        )}
+                console.log("idenHouse", idenHouse);
+                return (
+                  <ui key={index}>
+                    <div key={item._id} className="card__container">
+                      {dbHouses.length > 0 && (
+                        <Card firebaseHouseData={idenHouse} item={item} />
+                      )}
+                    </div>
+                  </ui>
+                );
+              })}
+            </ul>
+          )}
 
-        {/* <Carousel
+          {/* <Carousel
           slides={[
             "https://cdn.luxe.digital/media/20230123162705/most-expensive-houses-in-the-world-reviews-luxe-digital.jpg",
             "https://firebasestorage.googleapis.com/v0/b/asasefie-43161.appspot.com/o/post%2FlnSVTqEtgBb7NMUlOAy4V9UAfRu1%2F0.nxka4l2zri9?alt=media&token=56a84e28-8464-4b54-b5b0-275abe762397",
@@ -251,20 +254,21 @@ const Home = () => {
             // Add more image URLs as needed
           ]}
         /> */}
-      </div>
+        </div>
 
-      <div className="testiomnies">
-        <div className="for__you__text">
-          <span className="trending__now">Player Testimonials</span>
-          {/* <span className="play__to__win">Play to win!</span> */}
-        </div>
-        <div style={{ display: "flex" }}>
-          {testimonyData.map((item, index) => {
-            return <Testimony data={item} key={index} />;
-          })}
+        <div className="testiomnies">
+          <div className="for__you__text">
+            <span className="trending__now">Player Testimonials</span>
+            {/* <span className="play__to__win">Play to win!</span> */}
+          </div>
+          <div style={{ display: "flex" }}>
+            {testimonyData.map((item, index) => {
+              return <Testimony data={item} key={index} />;
+            })}
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 

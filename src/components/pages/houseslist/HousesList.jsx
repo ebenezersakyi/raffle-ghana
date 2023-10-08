@@ -110,7 +110,7 @@ const HousesList = () => {
     //     });
     // }
 
-    // console.log("removeUndefined", removeUndefined);
+    console.log("removeUndefined", removeUndefined);
     setHouseToRender(removeUndefined.slice(0, 50));
     setLoadingHouses(false);
   };
@@ -155,7 +155,7 @@ const HousesList = () => {
               const idenHouse = dbHouses.filter((item2, index) => {
                 return item2._id == item._id;
               });
-              // console.log("idenHouse", idenHouse);
+              // console.log("idenHouse", item);
               // console.log("housesToRender", housesToRender);
               return (
                 <>

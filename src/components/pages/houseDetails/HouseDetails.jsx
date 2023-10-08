@@ -16,7 +16,7 @@ const HouseDetails = () => {
   const Location = useLocation();
   const navigate = useNavigate();
 
-  const [house, setHouse] = useState(null);
+  // const [house, setHouse] = useState(null);
   const [firebaseHouseData, setFirebaseHouseData] = useState(null);
   const [mainImage, setMainImage] = useState(null);
   const [userLoggedIn, setLoggedIn] = useState(false);
@@ -35,6 +35,8 @@ const HouseDetails = () => {
   const [showCheckout, setShowCheckout] = useState(false);
 
   const [newTickets, setNewTickets] = useState([]);
+
+  const house = Location.state.data;
 
   const componentProps = {
     email,
@@ -129,8 +131,8 @@ const HouseDetails = () => {
       }
     });
 
-    // console.log("props", Location.state);
-    setHouse(Location.state.data);
+    console.log("props", Location.state.data);
+    // setHouse(Location.state.data);
     setMainImage(Location.state.data.houseImage[0]);
   }, []);
 
@@ -300,25 +302,51 @@ const HouseDetails = () => {
           </div>
         </div>
       )}
-      <div className="house-details">
-        <div className="image-carousel">
-          <img
-            className="main-image"
-            src={mainImage}
-            alt={`House in ${house.country}`}
-          />
-          <div className="thumbnail-images">
-            {house.houseImage.map((imageUrl, index) => (
-              <img
-                key={index}
-                src={imageUrl}
-                alt={`Image ${index}`}
-                className="thumbnail"
-                onClick={() => handleThumbnailClick(imageUrl)}
-              />
-            ))}
+
+      <div className="main__main">
+        <div className="house-details">
+          <div className="image-carousel">
+            <img
+              className="main-image"
+              src={mainImage}
+              alt={`House in ${house.country}`}
+            />
+            <div className="thumbnail-images">
+              {house.houseImage.map((imageUrl, index) => (
+                <img
+                  key={index}
+                  src={imageUrl}
+                  alt={`Image ${index}`}
+                  className="thumbnail"
+                  onClick={() => handleThumbnailClick(imageUrl)}
+                />
+              ))}
+            </div>
           </div>
+
+          {/* <div className="house__info">
+          <div className="info__card">
+            <span>Location</span>
+            <span>{house.country}</span>
+          </div>
+
+          <div className="info__card">
+            <span>Number of tickets</span>
+            <span className="desc__items__blw">100,000</span>
+          </div>
+
+          <div className="info__card">
+            <span>Number of tickets sold</span>
+            <span className="desc__items__blw">
+              {numberOfTicketsSold.toLocaleString()}
+              <span className="percentage">
+                ({((numberOfTicketsSold / 100000) * 100).toFixed(0)}%)
+              </span>
+            </span>
+          </div>
+        </div> */}
         </div>
+
         <div className="house-info">
           {/* <h2>{house.country}</h2> */}
           <span className="desc__items">

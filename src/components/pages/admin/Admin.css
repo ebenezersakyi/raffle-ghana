@@ -3,6 +3,7 @@
     min-height: calc(100vh - 80px);
     width: 100vw;
     background-color: #fff;
+    padding: 100px 0px 0px 0px;
     /* justify-content: center; */
     align-items: center;
 }

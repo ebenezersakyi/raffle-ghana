@@ -5,14 +5,14 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 20px;
+    padding: 100px 20px 20px 20px;
     position: relative;
 }
 
 .announ__container > h2 {
     position: absolute;
-    top: 20px;
-    left: 20px;
+    top: 100px;
+    /* left: 20px; */
     font-family: 'Times New Roman', Times, serif;
 }
 
@@ -24,13 +24,14 @@
     padding: 20px;
     flex: 1;
     width: 70%;
-    box-shadow: 3px 3px 10px rgba(169, 169, 169, 0.649);
+    /* box-shadow: 3px 3px 10px rgba(169, 169, 169, 0.649); */
 }
 
 .properties__container{
     display: flex;
     /* flex-wrap: ; */
-    flex-direction: column;
+    /* flex-direction: column; */
+    flex-wrap: wrap;
     justify-content: center;
     align-items: center;
 }
@@ -38,9 +39,10 @@
 .property__divs{
     border-radius: 10px;
     overflow: hidden;
-    background-color: rgb(248, 248, 248);
-    margin-bottom: 25px;
-    width: 70%;
+    background-color: rgb(249, 249, 249);
+    /* margin-bottom: 25px; */
+    width: 45%;
+    margin: 10px;
 }
 
 .property__divs:hover{
@@ -65,27 +67,51 @@
 .ann__details{
     display: flex;
     flex-direction: column;
-    padding: 15px;
+    padding: 10px;
     text-align: left;
     font-family: Arial, Helvetica, sans-serif;
 }
 .ann__deet{
-    margin: 7px;
-    font-size: 15px;
+    margin: 1px;
+    font-size: 13px;
     color: grey;
 }
 
 .main{
-    margin: 7px;
-    font-size: 20px;
+    margin: 2px;
+    font-size: 15px;
     color: black;
 }
 
-.title__itm{
+.winner{
     display: flex;
-    margin-bottom: 25px;
+    /* margin-top: 10px; */
+    margin: 10px;
+}
+
+.win__img{
+    height: 40px;
+    width: 40px;
+    border-radius: 360px;
+}
+
+.win_deets{
+    display: flex;
+    margin-left: 10px;
+    flex-direction: column;
+    text-align: left;
+    font-size: 13px;
+    justify-content: center;
+    color: gray;
+    /* align-items: center; */
+}
+
+.title__itm{
+    /* display: flex; */
+    margin-bottom: 55px;
     font-family: serif;
-    font-size: 25px;
+    font-size: 17px;
+    text-align: center;
     color: grey;
 }
 
@@ -98,7 +124,7 @@
         padding: 20px;
         flex: 1;
         width: 94%;
-        box-shadow: 3px 3px 10px rgba(169, 169, 169, 0.649);
+        /* box-shadow: 3px 3px 10px rgba(169, 169, 169, 0.649); */
     }
 
     .property__divs{

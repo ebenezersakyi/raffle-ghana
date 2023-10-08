@@ -4,7 +4,7 @@
     position: fixed;
     bottom: 30px;
     right: 30px;
-    z-index: 3px;
+    z-index: 1;
     /* background-color: black; */
     background-image: url('https://cdn.luxe.digital/media/20230123162705/most-expensive-houses-in-the-world-reviews-luxe-digital.jpg');
     font-family: serif;

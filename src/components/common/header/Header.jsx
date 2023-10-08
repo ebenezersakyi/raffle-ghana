@@ -11,6 +11,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../../../contexts/AuthContext";
 
 function Header() {
+  const [scrolling, setScrolling] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const [loggedIn, setLoggedIn] = useState(false);
   const [haveAccount, setHaveAccount] = useState(true);
@@ -123,6 +124,22 @@ function Header() {
     }
   };
 
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 30) {
+        setScrolling(true); // Change background color when scrolling
+      } else {
+        setScrolling(false); // Reset background color to initial when at the top
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
   // const navToSearchPage = () => {
   //   setIsOpen(false);
   //   navigate("/search", {
@@ -143,7 +160,7 @@ function Header() {
 
   return (
     <>
-      <nav className="nav__container">
+      <nav className={`nav__container ${scrolling ? "scrolling" : ""}`}>
         <div className="middle__section">
           <a href="/">
             <img
@@ -159,12 +176,12 @@ function Header() {
 
         <div className="right__section">
           <p>
-            <a href="/announcements" className="auth__nav">
+            <a href="/browse" className="auth__nav">
               Live Competitions
             </a>
           </p>
           <p>
-            <a href="/announcements" className="auth__nav">
+            <a href="/winners" className="auth__nav">
               Winners
             </a>
           </p>

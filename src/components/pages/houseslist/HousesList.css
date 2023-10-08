@@ -2,7 +2,8 @@
     min-height: calc(100vh - 80px);
     justify-content: center;
     align-items: center;
-    padding: 20px 10px 20px 10px;
+    padding: 100px 10px 20px 10px;
+    /* margin: 20px 0px 0px 0px; */
 }
 
 .property__results__section__list{
